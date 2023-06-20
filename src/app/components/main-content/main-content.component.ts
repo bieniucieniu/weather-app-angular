@@ -27,6 +27,7 @@ import { Component } from '@angular/core';
       }
       .topbar h1 {
         color: #306f8a;
+        font-size: 1.5rem;
       }
       .topbar img {
         opacity: 0.9;
@@ -38,7 +39,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="main-container">
       <div class="topbar">
-        <h1>Angular Router</h1>
+        <h1>weather app</h1>
         <a target="_about" href="https://github.com/bieniucieniu">
           <img src="assets/github-mark.svg" />
         </a>
