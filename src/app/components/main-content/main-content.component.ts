@@ -43,6 +43,7 @@ import { Component } from '@angular/core';
         <a target="_about" href="https://github.com/bieniucieniu">
           <img src="assets/github-mark.svg" />
         </a>
+        <app-search-bar></app-search-bar>
       </div>
     </div>
   `,

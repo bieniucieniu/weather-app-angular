@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-type Geocode = Record<string, number | string | [string, string]>;
+// export type Geocode = Record<string, number | string | [string, string]> | [];
+export type GeocodeResults =
+  | Record<string, number | string | [string, string]>[]
+  | [];
+export type Geocode = {
+  results: GeocodeResults;
+  generationtime_ms: number;
+};
 
 @Injectable({
   providedIn: 'root',
