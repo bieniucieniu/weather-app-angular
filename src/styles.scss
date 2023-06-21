@@ -7,6 +7,12 @@
   --text-color: #2d2d2d;
 }
 
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   background-image: var(--background-gradient);
