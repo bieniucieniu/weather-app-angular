@@ -5,14 +5,12 @@ import { Component } from '@angular/core';
   styles: [
     `
       div.main-container {
-        background-color: rgba(200, 200, 200, 0.15);
-        backdrop-filter: blur(1rem);
+        background-color: var(--background-color);
         border-radius: 2rem;
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
-        padding: 20px;
-        margin: 20px;
-        max-width: 800px;
-        background-color: #fff;
+        box-shadow: var(--dark-shadow);
+        padding: 1.5rem;
+        margin: 1.5rem;
+        max-width: 50rem;
 
         display: flex;
         flex-direction: column;
@@ -40,11 +38,15 @@ import { Component } from '@angular/core';
     <div class="main-container">
       <div class="topbar">
         <h1>weather app</h1>
-        <a target="_about" href="https://github.com/bieniucieniu">
+        <a
+          target="_about"
+          href="https://github.com/bieniucieniu/weather-app-angular"
+        >
           <img src="assets/github-mark.svg" />
         </a>
-        <app-search-bar></app-search-bar>
       </div>
+
+      <app-search-bar></app-search-bar>
     </div>
   `,
 })
