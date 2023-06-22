@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   styles: [
     `
-      div {
+      div.root {
         display: flex;
         justify-content: center;
       }
@@ -14,11 +14,12 @@ import { Component } from '@angular/core';
         box-shadow: var(--dark-shadow);
         padding: 1.5rem;
         margin: 1.5rem;
-        max-width: 50rem;
         min-width: 30rem;
+        min-height: 30rem;
 
         display: flex;
         flex-direction: column;
+        justify-content: start;
       }
 
       .topbar {
@@ -40,7 +41,7 @@ import { Component } from '@angular/core';
     `,
   ],
   template: `
-    <div>
+    <div class="root">
       <div class="main-container">
         <div class="topbar">
           <h1>weather app</h1>
