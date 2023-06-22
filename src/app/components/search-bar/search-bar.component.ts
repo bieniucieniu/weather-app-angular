@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   GeocodingService,
   type GeocodeResult,
@@ -24,7 +25,8 @@ import {
         margin: 1rem;
         border-radius: 1rem;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
         gap: 1rem;
       }
       div.dropdown {
@@ -41,7 +43,7 @@ import {
         border-radius: 1rem;
         animation: slide-down 0.2s ease-in-out;
       }
-      input {
+      input.search {
         color: var(--text-color);
         border: none;
         border-radius: 7px;
@@ -50,41 +52,69 @@ import {
         padding: 0.1rem 1rem;
         transition: box-shadow 0.1s ease-in-out,
           background-color 0.1s ease-in-out;
-      }
-      input:focus {
-        outline: none;
         box-shadow: var(--shadow);
         background-color: var(--dim-color);
       }
-      button {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 7px;
+      input.search:focus {
         outline: none;
-        border: none;
-        background: none;
-        transition: box-shadow 0.1s ease-in-out,
-          background-color 0.1s ease-in-out;
+        box-shadow: var(--dark-shadow);
+        background-color: var(--dark-dim-color);
+      }
+      .radio-group {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        color: var(--text-color);
       }
-      button:hover {
-        box-shadow: var(--shadow);
-        background-color: var(--dim-color);
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      button.dropdown-item {
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        text-align: left;
+        padding: 1rem;
+        border-radius: 0.5rem;
+      }
+      button.dropdown-item:hover {
+        background-color: var(--dark-dim-color);
+        box-shadow: var(--dark-shadow);
+      }
+      .text-dim {
+        color: var(--dim-text-color);
       }
     `,
   ],
   template: `
     <div class="wraper">
-      <input type="text" placeholder="search" (keyup)="onInputChange($event)" />
-      <button (click)="onClick()">
-        <img src="assets/search.svg" />
-      </button>
+      <input
+        class="search"
+        type="text"
+        placeholder="search"
+        (keyup)="onInputChange($event)"
+      />
+      <div class="radio-group">
+        <input type="radio" name="time" value="day" checked />
+        <label for="metric">day</label>
+        <input type="radio" name="time" value="week" />
+        <label for="imperial">week</label>
+        <input type="radio" name="time" value="month" />
+        <label for="imperial">month</label>
+      </div>
       <div *ngIf="inputValue.length > 0" class="dropdown">
         <ul *ngIf="geocodingData.length > 0; else noResults">
           <li *ngFor="let data of geocodingData">
-            {{ data['name'] }} <span>{{ data['country'] }}</span>
+            <button class="dropdown-item" (click)="onPlaceSelect(data)">
+              {{ data['name'] }}
+              <span class="text-dim">
+                {{ data['admin1'] }} | {{ data['country'] }},
+                {{ data['country_code'] }}
+              </span>
+            </button>
           </li>
         </ul>
         <ng-template #noResults>
@@ -95,7 +125,7 @@ import {
   `,
 })
 export class SearchBarComponent {
-  constructor(private geocoding: GeocodingService) {}
+  constructor(private geocoding: GeocodingService, private router: Router) {}
 
   inputValue: string = '';
   geocodingData: GeocodeResult[] = [];
@@ -107,5 +137,13 @@ export class SearchBarComponent {
       console.log(data);
     });
   }
-  onClick() {}
+  onPlaceSelect(place: GeocodeResult) {
+    this.geocodingData = [];
+    this.router.navigate(['/forecast'], {
+      queryParams: {
+        latitude: place['latitude'],
+        longitude: place['longitude'],
+      },
+    });
+  }
 }
