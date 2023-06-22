@@ -18,7 +18,7 @@ import {
           transform: translateY(0);
         }
       }
-      div.wraper {
+      form.wraper {
         position: relative;
         box-shadow: var(--shadow);
         padding: 0.7rem;
@@ -90,21 +90,22 @@ import {
     `,
   ],
   template: `
-    <div class="wraper">
+    <form class="wraper">
       <input
         class="search"
         type="text"
         placeholder="search"
         (keyup)="onInputChange($event)"
       />
+
       <div class="radio-group">
-        <input type="radio" name="time" value="day" checked />
-        <label for="metric">day</label>
-        <input type="radio" name="time" value="week" />
-        <label for="imperial">week</label>
+        forecast
+        <input type="radio" name="time" value="week" checked />
+        <label for="imperial" class="text-dim">1 week</label>
         <input type="radio" name="time" value="month" />
-        <label for="imperial">month</label>
+        <label for="imperial" class="text-dim">2 weeks</label>
       </div>
+
       <div *ngIf="inputValue.length > 0" class="dropdown">
         <ul *ngIf="geocodingData.length > 0; else noResults">
           <li *ngFor="let data of geocodingData">
@@ -117,11 +118,12 @@ import {
             </button>
           </li>
         </ul>
+
         <ng-template #noResults>
           <span> nothing like that... </span>
         </ng-template>
       </div>
-    </div>
+    </form>
   `,
 })
 export class SearchBarComponent {
@@ -129,6 +131,7 @@ export class SearchBarComponent {
 
   inputValue: string = '';
   geocodingData: GeocodeResult[] = [];
+  radioValue = false;
 
   onInputChange(event: KeyboardEvent) {
     this.inputValue = (event.target as HTMLInputElement).value;
@@ -143,6 +146,7 @@ export class SearchBarComponent {
       queryParams: {
         latitude: place['latitude'],
         longitude: place['longitude'],
+        forecastDays: '',
       },
     });
   }
