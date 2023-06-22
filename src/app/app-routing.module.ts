@@ -1,10 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainContentComponent } from './components/main-content/main-content.component';
 
 const routes: Routes = [
-  { path: '', component: MainContentComponent },
-  { path: 'forecast', component: MainContentComponent },
+  { path: '', redirectTo: 'search', pathMatch: 'full' },
+  {
+    path: 'search',
+    loadChildren: () =>
+      import('./components/search/search.module').then((m) => m.SearchModule),
+  },
+  {
+    path: 'forecast',
+    loadChildren: () =>
+      import('./components/forecast/forecast.module').then(
+        (m) => m.ForecastModule
+      ),
+  },
 ];
 
 @NgModule({
