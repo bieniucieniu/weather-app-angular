@@ -96,21 +96,6 @@ import { Subscription } from 'rxjs';
         padding: 0;
         margin: 0;
       }
-      button.dropdown-item {
-        background-color: transparent;
-        border: none;
-        width: 100%;
-        text-align: left;
-        padding: 1rem;
-        border-radius: 0.5rem;
-      }
-      button.dropdown-item:hover {
-        background-color: var(--dark-dim-color);
-        box-shadow: var(--dark-shadow);
-      }
-      .text-dim {
-        color: var(--dim-text-color);
-      }
     `,
   ],
   template: `
@@ -149,13 +134,10 @@ import { Subscription } from 'rxjs';
       <div *ngIf="inputValue.length > 0" class="dropdown">
         <ul *ngIf="geocodingData.length > 0; else noResults">
           <li *ngFor="let data of geocodingData">
-            <button class="dropdown-item" (click)="onPlaceSelect(data)">
-              {{ data['name'] }}
-              <span class="text-dim">
-                {{ data['admin1'] }} | {{ data['country'] }},
-                {{ data['country_code'] }}
-              </span>
-            </button>
+            <app-search-item
+              [data]="data"
+              (click)="onPlaceSelect(data)"
+            ></app-search-item>
           </li>
         </ul>
 
