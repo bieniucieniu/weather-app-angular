@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
           transform: translateY(0);
         }
       }
-      form.wraper {
+      div.wraper {
         position: relative;
         box-shadow: var(--shadow);
         padding: 0.7rem;
@@ -114,7 +114,7 @@ import { Subscription } from 'rxjs';
     `,
   ],
   template: `
-    <form class="wraper">
+    <div class="wraper">
       <input
         class="search"
         type="text"
@@ -163,28 +163,21 @@ import { Subscription } from 'rxjs';
           <span> nothing like that... </span>
         </ng-template>
       </div>
-    </form>
+    </div>
   `,
 })
 export class SearchBarComponent {
-  constructor(
-    private geocoding: GeocodingService,
-    private router: Router,
-    private geoSub: Subscription
-  ) {}
+  constructor(private geocoding: GeocodingService, private router: Router) {}
 
   inputValue: string = '';
   forcastValue: number = 7;
   geocodingData: GeocodeResult[] = [];
   radioValue = false;
   onInputChange() {
-    if (this.geoSub) this.geoSub.unsubscribe();
-    this.geoSub = this.geocoding
-      .getLocation(this.inputValue)
-      .subscribe((data) => {
-        this.geocodingData = data.results ? data.results : [];
-        console.log(data);
-      });
+    this.geocoding.getLocation(this.inputValue).subscribe((data) => {
+      this.geocodingData = data.results ? data.results : [];
+      console.log(data);
+    });
   }
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];
