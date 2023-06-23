@@ -8,6 +8,14 @@ import {
   selector: 'app-search-bar',
   styles: [
     `
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
       @keyframes slide-down {
         0% {
           opacity: 0;
@@ -60,11 +68,26 @@ import {
         box-shadow: var(--dark-shadow);
         background-color: var(--dark-dim-color);
       }
-      .radio-group {
+      .slide {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
+        gap: 1rem;
         color: var(--text-color);
+      }
+      .number {
+        outline: none;
+        border: none;
+        text-align: center;
+        box-shadow: var(--shadow);
+        background-color: var(--dim-color);
+        transition: box-shadow 0.1s ease-in-out,
+          background-color 0.1s ease-in-out;
+      }
+
+      .number:focus {
+        box-shadow: var(--dark-shadow);
+        background-color: var(--dark-dim-color);
       }
 
       ul {
@@ -95,15 +118,31 @@ import {
         class="search"
         type="text"
         placeholder="search"
-        (keyup)="onInputChange($event)"
+        [(ngModel)]="inputValue"
+        (keyup)="onInputChange()"
       />
 
-      <div class="radio-group">
-        forecast
-        <input type="radio" name="time" value="week" checked />
-        <label for="imperial" class="text-dim">1 week</label>
-        <input type="radio" name="time" value="month" />
-        <label for="imperial" class="text-dim">2 weeks</label>
+      <div class="slide">
+        <label for="forcastSlide">forcast:</label>
+        <span>
+          <input
+            class="number"
+            type="number"
+            name="forcastSlide"
+            min="1"
+            max="16"
+            [(ngModel)]="forcastValue"
+          />
+          days
+        </span>
+        <input
+          class="range"
+          type="range"
+          name="forcastSlide"
+          min="1"
+          max="16"
+          [(ngModel)]="forcastValue"
+        />
       </div>
 
       <div *ngIf="inputValue.length > 0" class="dropdown">
@@ -130,11 +169,10 @@ export class SearchBarComponent {
   constructor(private geocoding: GeocodingService, private router: Router) {}
 
   inputValue: string = '';
+  forcastValue: number = 7;
   geocodingData: GeocodeResult[] = [];
   radioValue = false;
-
-  onInputChange(event: KeyboardEvent) {
-    this.inputValue = (event.target as HTMLInputElement).value;
+  onInputChange() {
     this.geocoding.getLocation(this.inputValue).subscribe((data) => {
       this.geocodingData = data.results ? data.results : [];
       console.log(data);
@@ -146,7 +184,7 @@ export class SearchBarComponent {
       queryParams: {
         latitude: place['latitude'],
         longitude: place['longitude'],
-        forecastDays: '',
+        forecastDays: this.forcastValue,
       },
     });
   }
