@@ -4,6 +4,7 @@ import {
   GeocodingService,
   type GeocodeResult,
 } from '@/app/services/geocoding.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search-bar',
   styles: [
@@ -166,17 +167,24 @@ import {
   `,
 })
 export class SearchBarComponent {
-  constructor(private geocoding: GeocodingService, private router: Router) {}
+  constructor(
+    private geocoding: GeocodingService,
+    private router: Router,
+    private geoSub: Subscription
+  ) {}
 
   inputValue: string = '';
   forcastValue: number = 7;
   geocodingData: GeocodeResult[] = [];
   radioValue = false;
   onInputChange() {
-    this.geocoding.getLocation(this.inputValue).subscribe((data) => {
-      this.geocodingData = data.results ? data.results : [];
-      console.log(data);
-    });
+    if (this.geoSub) this.geoSub.unsubscribe();
+    this.geoSub = this.geocoding
+      .getLocation(this.inputValue)
+      .subscribe((data) => {
+        this.geocodingData = data.results ? data.results : [];
+        console.log(data);
+      });
   }
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];
