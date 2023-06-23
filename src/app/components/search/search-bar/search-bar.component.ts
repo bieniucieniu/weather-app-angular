@@ -173,11 +173,15 @@ export class SearchBarComponent {
   forcastValue: number = 7;
   geocodingData: GeocodeResult[] = [];
   radioValue = false;
+  geoSub: Subscription = new Subscription(null!);
   onInputChange() {
-    this.geocoding.getLocation(this.inputValue).subscribe((data) => {
-      this.geocodingData = data.results ? data.results : [];
-      console.log(data);
-    });
+    if (!this.geoSub.closed) this.geoSub.unsubscribe();
+    this.geoSub = this.geocoding
+      .getLocation(this.inputValue)
+      .subscribe((data) => {
+        this.geocodingData = data.results ? data.results : [];
+        console.log(data);
+      });
   }
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];
