@@ -4,6 +4,7 @@ import {
   GeocodingService,
   type GeocodeResult,
 } from '@/app/services/geocoding.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search-bar',
   styles: [
@@ -95,21 +96,6 @@ import {
         padding: 0;
         margin: 0;
       }
-      button.dropdown-item {
-        background-color: transparent;
-        border: none;
-        width: 100%;
-        text-align: left;
-        padding: 1rem;
-        border-radius: 0.5rem;
-      }
-      button.dropdown-item:hover {
-        background-color: var(--dark-dim-color);
-        box-shadow: var(--dark-shadow);
-      }
-      .text-dim {
-        color: var(--dim-text-color);
-      }
     `,
   ],
   template: `
@@ -148,13 +134,10 @@ import {
       <div *ngIf="inputValue.length > 0" class="dropdown">
         <ul *ngIf="geocodingData.length > 0; else noResults">
           <li *ngFor="let data of geocodingData">
-            <button class="dropdown-item" (click)="onPlaceSelect(data)">
-              {{ data['name'] }}
-              <span class="text-dim">
-                {{ data['admin1'] }} | {{ data['country'] }},
-                {{ data['country_code'] }}
-              </span>
-            </button>
+            <app-search-item
+              [data]="data"
+              (click)="onPlaceSelect(data)"
+            ></app-search-item>
           </li>
         </ul>
 
@@ -172,11 +155,15 @@ export class SearchBarComponent {
   forcastValue: number = 7;
   geocodingData: GeocodeResult[] = [];
   radioValue = false;
+  geoSub: Subscription = new Subscription(null!);
   onInputChange() {
-    this.geocoding.getLocation(this.inputValue).subscribe((data) => {
-      this.geocodingData = data.results ? data.results : [];
-      console.log(data);
-    });
+    if (!this.geoSub.closed) this.geoSub.unsubscribe();
+    this.geoSub = this.geocoding
+      .getLocation(this.inputValue)
+      .subscribe((data) => {
+        this.geocodingData = data.results ? data.results : [];
+        console.log(data);
+      });
   }
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];

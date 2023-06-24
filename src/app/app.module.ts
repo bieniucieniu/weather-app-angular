@@ -4,13 +4,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NgChartsModule } from 'ng2-charts';
-import { DatePipe } from '@angular/common';
+
+import { SearchBarComponent } from './components/search/search-bar/search-bar.component';
+import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
+import { SearchItemComponent } from './components/search/search-bar/search-item/search-item.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgChartsModule],
-  providers: [DatePipe],
+  declarations: [
+    AppComponent,
+    SearchBarComponent,
+    SearchComponent,
+    SearchItemComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
