@@ -26,7 +26,7 @@ import {
           transform: translateY(0);
         }
       }
-      form.wraper {
+      div.wraper {
         position: relative;
         box-shadow: var(--shadow);
         padding: 0.7rem;
@@ -113,7 +113,7 @@ import {
     `,
   ],
   template: `
-    <form class="wraper">
+    <div class="wraper">
       <input
         class="search"
         type="text"
@@ -162,7 +162,7 @@ import {
           <span> nothing like that... </span>
         </ng-template>
       </div>
-    </form>
+    </div>
   `,
 })
 export class SearchBarComponent {

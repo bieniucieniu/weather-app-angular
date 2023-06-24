@@ -35,9 +35,7 @@ export class ForecastComponent {
           : 7,
       };
     });
-    this.weather
-      .getWeather(this.params)
-      .subscribe((e) => (this.weatherData = e));
+    this.weather.getDay(this.params).subscribe((e) => (this.weatherData = e));
   }
   onClick() {
     console.log(this.weatherData);
