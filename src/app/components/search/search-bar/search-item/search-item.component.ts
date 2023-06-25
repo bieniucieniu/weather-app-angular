@@ -5,6 +5,10 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
   selector: 'app-search-item',
   styles: [
     `
+      p {
+        display: flex;
+        flex-direction: row;
+      }
       button.dropdown-item {
         background-color: transparent;
         border: none;
@@ -20,6 +24,17 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
       .text-dim {
         color: var(--dim-text-color);
       }
+      button.fav {
+        background-color: transparent;
+        border: none;
+        color: var(--dim-text-color);
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        margin-left: auto;
+      }
+      button.fav:hover {
+        color: var(--text-color);
+      }
     `,
   ],
   template: `
@@ -31,6 +46,7 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
           {{ data['country_code'] }}
         </span>
       </button>
+      <button class="fav">&#9733;</button>
     </p>
   `,
 })
