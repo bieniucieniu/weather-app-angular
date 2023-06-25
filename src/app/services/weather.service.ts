@@ -4,7 +4,13 @@ import { DatePipe } from '@angular/common';
 export type WeatherProps = {
   latitude: number;
   longitude: number;
-  forecastDays?: number;
+  date?:
+    | Date
+    | {
+        start: Date;
+        end?: Date;
+      }
+    | undefined;
 };
 export type Weather =
   | ({
@@ -38,7 +44,7 @@ export class WeatherService {
       longitude: Number(params.longitude),
       timeformat: 'unixtime',
       timezone: 'auto',
-      hourly: 'temperature_2m',
+      hourly: ['temperature_2m', 'precipitation_probability', 'weathercode'],
       start_date: params.date
         ? this.toFullDate(params.date)
         : this.toFullDate(new Date()),
@@ -57,7 +63,7 @@ export class WeatherService {
       longitude: Number(params.longitude),
       timeformat: 'unixtime',
       timezone: 'auto',
-      daily: 'temperature_2m',
+      daily: ['temperature_2m', 'precipitation_probability', 'weathercode'],
       start_date: params.date.start
         ? this.toFullDate(params.date.start)
         : this.toFullDate(new Date()),
