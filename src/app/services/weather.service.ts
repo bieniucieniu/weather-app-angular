@@ -63,7 +63,12 @@ export class WeatherService {
       longitude: Number(params.longitude),
       timeformat: 'unixtime',
       timezone: 'auto',
-      daily: ['temperature_2m', 'precipitation_probability', 'weathercode'],
+      daily: [
+        'temperature_2m_max',
+        'temperature_2m_min',
+        'precipitation_sum',
+        'weathercode',
+      ],
       start_date: params.date.start
         ? this.toFullDate(params.date.start)
         : this.toFullDate(new Date()),
