@@ -31,6 +31,28 @@ type Weather = DailyWeather | HourlyWeather;
     `
       .card {
         color: black;
+        box-shadow: var(--shadow);
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h5 {
+          margin: 0;
+        }
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .drop {
+        width: 0.5rem;
+      }
+      .dim-text {
+        color: var(--dim-text-color);
       }
     `,
   ],
@@ -41,15 +63,18 @@ type Weather = DailyWeather | HourlyWeather;
         *ngIf="isHourlyWeather(); then hourly; else daily"
       ></div>
       <ng-template #hourly>
-        <div class="card-title">
-          <h5>{{ data.date | date : 'h:mm' }}</h5>
-          <img [src]="weatherDescription.day.image" alt="weather-img" />
-          <h6>{{ weatherDescription.day.description }}</h6>
-          <span>
-            {{ data.temperature_2m }}°C
-            <span>{{ data.precipitation_probability }}%</span>
-          </span>
-        </div>
+        <h5>{{ weatherDescription.day.description }}</h5>
+        <img [src]="weatherDescription.day.image" alt="weather-img" />
+        <span class="row">
+          <span> {{ data.temperature_2m }}°C</span>
+          <span class="dim-text"
+            ><img class="drop" src="assets/drop.svg" alt="" />{{
+              data.precipitation_probability
+            }}%</span
+          >
+        </span>
+
+        <h5>{{ data.date | date : 'h:mm' }}</h5>
       </ng-template>
       <ng-template #daily>
         <h5>{{ data.date | date : 'MMM d' }}</h5>

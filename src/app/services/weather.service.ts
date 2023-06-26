@@ -11,6 +11,7 @@ export type WeatherProps = {
         end: Date;
       }
     | undefined;
+  current_weather?: boolean;
 };
 export type Weather =
   | {
@@ -52,6 +53,7 @@ export class WeatherService {
       end_date: params.date
         ? this.toFullDate(params.date)
         : this.toFullDate(new Date()),
+      current_weather: params.current_weather ? true : false,
     };
 
     return this.http.get<Weather>(`https://api.open-meteo.com/v1/forecast`, {

@@ -172,6 +172,7 @@ export class SearchBarComponent {
         latitude: place['latitude'],
         longitude: place['longitude'],
         forecastDays: this.forcastValue,
+        current: true,
       },
     });
   }

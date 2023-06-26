@@ -19,13 +19,28 @@ type HourlyWeather = {
       div.main {
         color: black;
       }
+      div.list-wraper {
+        display: flex;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      ul.list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        list-style: none;
+        padding: 0;
+        margin: 00.5rem;
+      }
     `,
   ],
   template: `
     <div class="main">
       <button (click)="onClick()">log data</button>
-      <div class="">
-        <ul>
+      <div class="current-weather"></div>
+      <div class="list-wraper">
+        <ul class="list">
           <li *ngFor="let data of hourlyWeather">
             <app-weather-card [data]="data"></app-weather-card>
           </li>
@@ -40,6 +55,7 @@ export class DayWeatherComponent {
     this.weather
       .getDay({
         date: new Date(),
+        current_weather: true,
         ...this.params,
       })
       .subscribe((e) => {
@@ -52,6 +68,11 @@ export class DayWeatherComponent {
           ].toString() as keyof typeof WeatherDescriptions,
           date: new Date(time * 1000),
         }));
+        console.log(e);
+
+        this.currentWeather = {
+          ...e.current_weather,
+        };
       });
   }
   @Input() params: WeatherProps & { date?: Date } = {

@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
         padding: 1.5rem;
         margin: 1.5rem;
         min-width: 30rem;
+        max-width: 30rem;
         min-height: 30rem;
 
         display: flex;
