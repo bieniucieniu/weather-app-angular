@@ -7,16 +7,18 @@ export type WeatherProps = {
   date?:
     | Date
     | {
-        start: Date;
-        end?: Date;
+        start?: Date;
+        end: Date;
       }
     | undefined;
 };
 export type Weather =
-  | ({
+  | {
       hourly: {
         time: number[];
         temperature_2m: number[];
+        precipitation_probability: number[];
+        weathercode: number[];
       };
       current_weather: {
         time: number;
@@ -25,8 +27,7 @@ export type Weather =
         windspeed: number;
         winddirection: number;
       };
-    } & Record<string, number | string>)
-  | {};
+    } & Record<string, number | string>;
 
 @Injectable({
   providedIn: 'root',

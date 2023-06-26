@@ -10,7 +10,7 @@ import {
   styles: [``],
   template: `
     <div>
-      <button (click)="onClick()">log data</button>
+      <app-day-weather [params]="params"></app-day-weather>
     </div>
   `,
 })
@@ -19,25 +19,17 @@ export class ForecastComponent {
     private ActivatedRoute: ActivatedRoute,
     private weather: WeatherService
   ) {}
-  params: WeatherProps = {
+  params: Parameters<typeof this.weather.getDay>[0] = {
     latitude: 0,
     longitude: 0,
   };
-  weatherData: Weather = {};
 
   ngOnInit() {
     this.ActivatedRoute.queryParams.subscribe((params: Params) => {
       this.params = {
-        latitude: Number(params['latitude']),
-        longitude: Number(params['longitude']),
-        forecastDays: params['forecastDays']
-          ? Number(params['forecastDays'])
-          : 7,
+        latitude: params['latitude'] as number,
+        longitude: params['longitude'],
       };
     });
-    this.weather.getDay(this.params).subscribe((e) => (this.weatherData = e));
-  }
-  onClick() {
-    console.log(this.weatherData);
   }
 }
