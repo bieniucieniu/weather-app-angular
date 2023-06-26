@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
 
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: flex-start;
       }
 
       .topbar {
