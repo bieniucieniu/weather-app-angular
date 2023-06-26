@@ -75,6 +75,7 @@ import { Subscription } from 'rxjs';
         justify-content: center;
         gap: 1rem;
         color: var(--text-color);
+        visibility: hidden;
       }
       .number {
         outline: none;

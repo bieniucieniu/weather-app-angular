@@ -33,11 +33,36 @@ import { Component } from '@angular/core';
       .topbar h1 {
         color: #306f8a;
         font-size: 1.5rem;
+        text-decoration: none;
       }
-      .topbar img {
-        opacity: 0.9;
+
+      @media (max-width: 768px) {
+        div.main-container {
+          min-width: 20rem;
+          max-width: 20rem;
+          min-height: 20rem;
+        }
+      }
+
+      .topbar img.search-icon {
+        width: 1rem;
+        height: 1rem;
+      }
+      .topbar img.github-icon {
         width: 2rem;
         height: 2rem;
+      }
+
+      .head-link {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+      }
+
+      .head-link:hover {
+        text-decoration: underline;
       }
     `,
   ],
@@ -45,12 +70,19 @@ import { Component } from '@angular/core';
     <div class="root">
       <div class="main-container">
         <div class="topbar">
-          <h1>weather app</h1>
+          <a [routerLink]="['/search']" class="head-link">
+            <h1>weather app</h1>
+            <img
+              src="assets/search.svg"
+              alt="search-icon"
+              class="search-icon"
+            />
+          </a>
           <a
             target="_about"
             href="https://github.com/bieniucieniu/weather-app-angular"
           >
-            <img src="assets/github-mark.svg" />
+            <img class="github-icon" src="assets/github-mark.svg" />
           </a>
         </div>
         <router-outlet></router-outlet>
