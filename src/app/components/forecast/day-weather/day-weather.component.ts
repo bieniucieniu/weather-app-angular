@@ -37,8 +37,8 @@ type HourlyWeather = {
   ],
   template: `
     <div class="main">
-      <button (click)="onClick()">log data</button>
-      <div class="current-weather"></div>
+      <!-- <button (click)="onClick()">log data</button> -->
+      <app-current-weather [data]="currentWeather"></app-current-weather>
       <div class="list-wraper">
         <ul class="list">
           <li *ngFor="let data of hourlyWeather">
@@ -68,8 +68,6 @@ export class DayWeatherComponent {
           ].toString() as keyof typeof WeatherDescriptions,
           date: new Date(time * 1000),
         }));
-        console.log(e);
-
         this.currentWeather = {
           ...e.current_weather,
         };
@@ -81,12 +79,12 @@ export class DayWeatherComponent {
   };
 
   currentWeather: Weather['current_weather'] = {
-    time: 0,
     temperature: 0,
-    weathercode: 0,
+    weathercode: '0',
     winddirection: 0,
     windspeed: 0,
   };
+
   hourlyWeather: HourlyWeather = [];
   length: number = 0;
   onClick() {

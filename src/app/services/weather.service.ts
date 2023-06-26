@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as WeatherDescriptions from '@/assets/weatherDescriptions.json';
 import { DatePipe } from '@angular/common';
 export type WeatherProps = {
   latitude: number;
@@ -19,12 +20,11 @@ export type Weather =
         time: number[];
         temperature_2m: number[];
         precipitation_probability: number[];
-        weathercode: number[];
+        weathercode: (keyof typeof WeatherDescriptions)[];
       };
       current_weather: {
-        time: number;
         temperature: number;
-        weathercode: number;
+        weathercode: keyof typeof WeatherDescriptions;
         windspeed: number;
         winddirection: number;
       };
@@ -81,5 +81,11 @@ export class WeatherService {
     return this.http.get<Weather>(`https://api.open-meteo.com/v1/forecast`, {
       params: queryParams,
     });
+  }
+  getDescriptions(code: keyof typeof WeatherDescriptions, day: boolean = true) {
+    return WeatherDescriptions[code][day ? 'day' : 'night'].description;
+  }
+  getImageUrl(code: keyof typeof WeatherDescriptions, day: boolean = true) {
+    return WeatherDescriptions[code][day ? 'day' : 'night'].image;
   }
 }

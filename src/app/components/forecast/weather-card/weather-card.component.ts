@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import * as WeatherDescriptions from '@/assets/weatherDescriptions.json';
+import { WeatherService } from '@/app/services/weather.service';
 
 export type DailyWeather = {
   temperature_2m_max: number;
@@ -30,8 +31,8 @@ type Weather = DailyWeather | HourlyWeather;
   styles: [
     `
       .card {
-        color: black;
         box-shadow: var(--shadow);
+        color: var(--text-color);
         border-radius: 1rem;
         padding: 0.5rem 1rem;
         display: flex;
@@ -63,8 +64,8 @@ type Weather = DailyWeather | HourlyWeather;
         *ngIf="isHourlyWeather(); then hourly; else daily"
       ></div>
       <ng-template #hourly>
-        <h5>{{ weatherDescription.day.description }}</h5>
-        <img [src]="weatherDescription.day.image" alt="weather-img" />
+        <h5>{{ getDesc(data.weathercode) }}</h5>
+        <img [src]="getUrl(data.weathercode)" alt="weather-img" />
         <span class="row">
           <span> {{ data.temperature_2m }}°C</span>
           <span class="dim-text"
@@ -83,6 +84,7 @@ type Weather = DailyWeather | HourlyWeather;
   `,
 })
 export class WeatherCardComponent {
+  constructor(private weatherService: WeatherService) {}
   @Input() data: Weather = {
     precipitation_probability: 0,
     temperature_2m: 0,
@@ -93,5 +95,13 @@ export class WeatherCardComponent {
   isHourlyWeather = (): boolean => {
     return 'temperature_2m' in this.data;
   };
+
+  getDesc(code: typeof this.data.weathercode) {
+    return this.weatherService.getDescriptions(code);
+  }
+  getUrl(code: typeof this.data.weathercode) {
+    return this.weatherService.getImageUrl(code);
+  }
+
   weatherDescription = WeatherDescriptions[this.data.weathercode];
 }

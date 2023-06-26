@@ -162,7 +162,6 @@ export class SearchBarComponent {
       .getLocation(this.inputValue)
       .subscribe((data) => {
         this.geocodingData = data.results ? data.results : [];
-        console.log(data);
       });
   }
   onPlaceSelect(place: GeocodeResult) {
