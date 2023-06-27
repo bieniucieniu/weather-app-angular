@@ -16,6 +16,9 @@ type HourlyWeather = {
   selector: 'app-day-weather',
   styles: [
     `
+      div {
+        color: var(--text-color);
+      }
       div.list-wraper {
         display: flex;
         max-width: 100%;
