@@ -5,6 +5,7 @@ import {
   type GeocodeResult,
 } from '@/app/services/geocoding.service';
 import { Subscription } from 'rxjs';
+import { StorageService } from '@/app/services/storage.service';
 @Component({
   selector: 'app-search-bar',
   styles: [
@@ -150,7 +151,11 @@ import { Subscription } from 'rxjs';
   `,
 })
 export class SearchBarComponent {
-  constructor(private geocoding: GeocodingService, private router: Router) {}
+  constructor(
+    private geocoding: GeocodingService,
+    private router: Router,
+    private storage: StorageService
+  ) {}
 
   inputValue: string = '';
   forcastValue: number = 7;
@@ -167,6 +172,11 @@ export class SearchBarComponent {
   }
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];
+    this.storage.setLastSearch({
+      latitude: place['latitude'] as string,
+      longitude: place['longitude'] as string,
+      name: place['name'] as string,
+    });
     this.router.navigate(['/forecast'], {
       queryParams: {
         latitude: place['latitude'],
