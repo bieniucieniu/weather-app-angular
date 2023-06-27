@@ -15,6 +15,13 @@ const routes: Routes = [
         (m) => m.ForecastModule
       ),
   },
+  {
+    path: 'favorite',
+    loadChildren: () =>
+      import('./components/favorite/favorite.module').then(
+        (m) => m.FavoriteModule
+      ),
+  },
 ];
 
 @NgModule({
