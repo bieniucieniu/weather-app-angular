@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 export type WeatherProps = {
   latitude: number;
   longitude: number;
+  name?: string;
   date?:
     | Date
     | {

@@ -37,6 +37,7 @@ type HourlyWeather = {
   ],
   template: `
     <div class="main">
+      <h3>{{ params.name }}{{ params.date | date : 'EEEE, MMMM d' }}</h3>
       <!-- <button (click)="onClick()">log data</button> -->
       <app-current-weather [data]="currentWeather"></app-current-weather>
       <div class="list-wraper">

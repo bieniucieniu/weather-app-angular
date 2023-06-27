@@ -29,6 +29,7 @@ export class ForecastComponent {
       this.params = {
         latitude: params['latitude'] as number,
         longitude: params['longitude'],
+        name: params['name'],
       };
     });
   }

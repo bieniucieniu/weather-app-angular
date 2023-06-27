@@ -171,8 +171,9 @@ export class SearchBarComponent {
       queryParams: {
         latitude: place['latitude'],
         longitude: place['longitude'],
-        forecastDays: this.forcastValue,
+        // forecastDays: this.forcastValue,
         current: true,
+        name: place['name'],
       },
     });
   }

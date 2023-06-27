@@ -53,8 +53,12 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
 export class SearchItemComponent {
   @Input() data: GeocodeResult = {};
   @Output() click = new EventEmitter();
+  @Output() fav = new EventEmitter();
 
   emit() {
     this.click.emit();
+  }
+  favClick() {
+    this.fav.emit();
   }
 }
