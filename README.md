@@ -13,6 +13,7 @@ roadmap:
 - [ ] better design / lepszy design
 - [ ] better error handling / lepsze zarządzanie błędami
 - [x] favorites cities / ulubione miasta
+- [ ] better file structure (maybe seperate dir for pages) / lepsza struktura plików (może osobny folder dla stron)
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
