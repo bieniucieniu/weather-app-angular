@@ -83,6 +83,21 @@ export class WeatherService {
       params: queryParams,
     });
   }
+
+  getCurrentWeather(params: WeatherProps) {
+    const queryParams = {
+      latitude: Number(params.latitude),
+      longitude: Number(params.longitude),
+      timeformat: 'unixtime',
+      timezone: 'auto',
+      current_weather: true,
+    };
+
+    return this.http.get<Weather>(`https://api.open-meteo.com/v1/forecast`, {
+      params: queryParams,
+    });
+  }
+
   getDescriptions(code: keyof typeof WeatherDescriptions, day: boolean = true) {
     return WeatherDescriptions[code][day ? 'day' : 'night'].description;
   }

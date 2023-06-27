@@ -9,6 +9,7 @@ import { type Weather, WeatherService } from '@/app/services/weather.service';
         color: var(--text-color);
         border-radius: 1rem;
         padding: 0.5rem 1rem;
+        margin: 1rem;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
