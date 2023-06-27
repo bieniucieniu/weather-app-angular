@@ -40,16 +40,17 @@ export class StorageService {
     localStorage.setItem('favorite', JSON.stringify(this.favorite));
   }
 
-  public getFavorite() {
+  public getFavorite(): placesInfo[] | undefined {
     if (localStorage.getItem('favorite')) {
       return JSON.parse(localStorage.getItem('favorite') as string);
     }
+    return undefined;
   }
 
-  public removeFromFavorite(value: placesInfo) {
+  public removeFromFavorite(value: { id: number }) {
     if (localStorage.getItem('favorite')) {
       this.favorite = JSON.parse(localStorage.getItem('favorite') as string);
-      this.favorite = this.favorite.filter((item) => item.name !== value.name);
+      this.favorite = this.favorite.filter((item) => item.id !== value.id);
       localStorage.setItem('favorite', JSON.stringify(this.favorite));
     }
   }

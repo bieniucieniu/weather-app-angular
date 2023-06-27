@@ -2,19 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as WeatherDescriptions from '@/assets/weatherDescriptions.json';
 import { DatePipe } from '@angular/common';
+import da from 'date-fns/locale/da';
 export type WeatherProps = {
-  latitude: number;
-  longitude: number;
+  latitude: number | string;
+  longitude: number | string;
   name?: string;
-  date?:
-    | Date
-    | {
-        start?: Date;
-        end: Date;
-      }
-    | undefined;
   current_weather?: boolean;
 };
+
+interface DayProps extends WeatherProps {
+  date?: Date;
+}
+interface ForecastProps extends WeatherProps {
+  date: {
+    start?: Date;
+    end: Date;
+  };
+}
 export type Weather =
   | {
       hourly: {
@@ -41,7 +45,7 @@ export class WeatherService {
     return str ? str : this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
   }
 
-  getDay(params: WeatherProps & { date?: Date }) {
+  getDay(params: DayProps) {
     const queryParams = {
       latitude: Number(params.latitude),
       longitude: Number(params.longitude),
@@ -61,7 +65,7 @@ export class WeatherService {
       params: queryParams,
     });
   }
-  getForecast(params: WeatherProps & { date: { start?: Date; end: Date } }) {
+  getForecast(params: ForecastProps) {
     const queryParams = {
       latitude: Number(params.latitude),
       longitude: Number(params.longitude),

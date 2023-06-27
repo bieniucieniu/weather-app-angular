@@ -64,6 +64,23 @@ import { Component } from '@angular/core';
       .head-link:hover {
         text-decoration: underline;
       }
+
+      .topbar-right {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .favorite {
+        color: var(--yellow-color);
+        text-decoration: none;
+        font-size: 2rem;
+      }
+      .favorite:hover {
+        text-decoration: underline;
+      }
     `,
   ],
   template: `
@@ -78,12 +95,15 @@ import { Component } from '@angular/core';
               class="search-icon"
             />
           </a>
-          <a
-            target="_about"
-            href="https://github.com/bieniucieniu/weather-app-angular"
-          >
-            <img class="github-icon" src="assets/github-mark.svg" />
-          </a>
+          <div class="topbar-right">
+            <a [routerLink]="['/favorite']" class="favorite"> &#9733;</a>
+            <a
+              target="_about"
+              href="https://github.com/bieniucieniu/weather-app-angular"
+            >
+              <img class="github-icon" src="assets/github-mark.svg" />
+            </a>
+          </div>
         </div>
         <router-outlet></router-outlet>
       </div>

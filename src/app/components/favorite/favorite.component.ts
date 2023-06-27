@@ -1,35 +1,73 @@
 import { StorageService } from '@/app/services/storage.service';
-import { Weather, WeatherService } from '@/app/services/weather.service';
+import { type WeatherProps } from '@/app/services/weather.service';
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-favorite',
-  template: ` <p></p> `,
-  styles: [],
+  styles: [
+    `
+      div.wraper {
+        color: var(--text-color);
+        max-height: 70vh;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        gap: 0;
+      }
+      h1 {
+        color: var(--header-text-color);
+      }
+      button {
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--dim-color);
+        box-shadow: var(--shadow);
+        transition: 0.1s;
+      }
+
+      button:hover {
+        background-color: var(--dark-dim-color);
+        box-shadow: var(--dark-shadow);
+      }
+    `,
+  ],
+  template: `
+    <div class="wraper" *ngIf="favorite.length > 0; else elseBlock">
+      <ul>
+        <li *ngFor="let e of favorite">
+          <app-day-weather [params]="e"></app-day-weather>
+          <button (click)="removeFavorite(e)">remove from favorite</button>
+        </li>
+      </ul>
+    </div>
+    <ng-template #elseBlock>
+      <h1>no favourite...</h1>
+    </ng-template>
+  `,
 })
 export class FavoriteComponent {
-  constructor(
-    private weather: WeatherService,
-    private storage: StorageService
-  ) {}
+  constructor(private storage: StorageService) {}
 
-  lastSearch = this.storage.getLastSearch();
-  weatherSub = new Subscription();
-  data: Weather['current_weather'] = {
-    temperature: 0,
-    weathercode: '0',
-    winddirection: 0,
-    windspeed: 0,
-  };
+  favorite: (WeatherProps & { id: number })[] = [];
 
   ngOnInit() {
-    if (this.lastSearch) {
-      this.weatherSub = this.weather
-        .getCurrentWeather(this.lastSearch)
-        .subscribe((e) => {
-          this.data = e.current_weather;
-        });
+    const e = this.storage.getFavorite();
+    console.log(e);
+    if (e) {
+      this.favorite = e;
     }
+  }
+  removeFavorite(e: (typeof this.favorite)[0]) {
+    this.storage.removeFromFavorite(e);
+    this.favorite = this.storage.getFavorite()!;
   }
 }
