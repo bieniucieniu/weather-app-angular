@@ -3,6 +3,7 @@ import { WeatherProps } from './weather.service';
 
 type placesInfo = {
   name: string;
+  id: number;
   latitude: number | string;
   longitude: number | string;
 };
@@ -16,9 +17,12 @@ export class StorageService {
   public addToFavorite(value: placesInfo) {
     if (localStorage.getItem('favorite')) {
       this.favorite = JSON.parse(localStorage.getItem('favorite') as string);
-      this.favorite.push(value);
-      localStorage.setItem('favorite', JSON.stringify(this.favorite));
+      for (let e of this.favorite) {
+        if (e.id == value.id) return;
+      }
     }
+    this.favorite.push(value);
+    localStorage.setItem('favorite', JSON.stringify(this.favorite));
   }
 
   public getFavorite() {
