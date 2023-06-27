@@ -3,15 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { FavoriteRoutingModule } from './favorite-routing.module';
 import { FavoriteComponent } from './favorite.component';
-
+import { SharedModule } from '@/app/shared.module';
 
 @NgModule({
-  declarations: [
-    FavoriteComponent
-  ],
-  imports: [
-    CommonModule,
-    FavoriteRoutingModule
-  ]
+  declarations: [FavoriteComponent],
+  imports: [CommonModule, FavoriteRoutingModule, SharedModule],
 })
-export class FavoriteModule { }
+export class FavoriteModule {}

@@ -140,6 +140,7 @@ import { StorageService } from '@/app/services/storage.service';
             <app-search-item
               [data]="data"
               (select)="onPlaceSelect(data)"
+              (fav)="onFav(data)"
             ></app-search-item>
           </li>
         </ul>
@@ -187,5 +188,14 @@ export class SearchBarComponent {
         name: place['name'],
       },
     });
+  }
+  onFav(place: GeocodeResult) {
+    this.storage.addToFavorite({
+      latitude: place['latitude'] as number,
+      longitude: place['longitude'] as number,
+      name: place['name'] as string,
+      id: place['id'] as number,
+    });
+    console.log(this.storage.getFavorite());
   }
 }

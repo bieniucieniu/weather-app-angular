@@ -46,7 +46,7 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
           {{ data['country_code'] }}
         </span>
       </button>
-      <button class="fav">&#9733;</button>
+      <button class="fav" (click)="emitFav()">&#9733;</button>
     </p>
   `,
 })
