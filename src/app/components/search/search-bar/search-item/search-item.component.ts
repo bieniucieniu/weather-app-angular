@@ -39,7 +39,7 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
   ],
   template: `
     <p>
-      <button class="dropdown-item" (click)="emit()">
+      <button class="dropdown-item" (click)="emitSelect()">
         {{ data['name'] }}
         <span class="text-dim">
           {{ data['admin1'] }} | {{ data['country'] }},
@@ -52,13 +52,13 @@ import { type GeocodeResult } from '@/app/services/geocoding.service';
 })
 export class SearchItemComponent {
   @Input() data: GeocodeResult = {};
-  @Output() click = new EventEmitter();
+  @Output() select = new EventEmitter();
   @Output() fav = new EventEmitter();
 
-  emit() {
-    this.click.emit();
+  emitSelect() {
+    this.select.emit();
   }
-  favClick() {
+  emitFav() {
     this.fav.emit();
   }
 }

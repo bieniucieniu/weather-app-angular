@@ -137,7 +137,7 @@ import { Subscription } from 'rxjs';
           <li *ngFor="let data of geocodingData">
             <app-search-item
               [data]="data"
-              (click)="onPlaceSelect(data)"
+              (select)="onPlaceSelect(data)"
             ></app-search-item>
           </li>
         </ul>
