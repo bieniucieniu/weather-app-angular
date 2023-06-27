@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { WeatherProps } from './weather.service';
 
 type placesInfo = {
   name: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | string;
+  longitude: number | string;
 };
 @Injectable({
   providedIn: 'root',
@@ -34,13 +35,14 @@ export class StorageService {
     }
   }
 
-  public setLastSearch(value: placesInfo) {
+  public setLastSearch(value: WeatherProps) {
     localStorage.setItem('lastSearch', JSON.stringify(value));
   }
 
-  public getLastSearch() {
+  public getLastSearch(): WeatherProps | undefined {
     if (localStorage.getItem('lastSearch')) {
       return JSON.parse(localStorage.getItem('lastSearch') as string);
     }
+    return undefined;
   }
 }

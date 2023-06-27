@@ -36,11 +36,15 @@ import { type Weather, WeatherService } from '@/app/services/weather.service';
         display: flex;
         align-items: center;
       }
+      .text-dim {
+        color: var(--dim-text-color);
+      }
     `,
   ],
   template: ` <div class="card">
     <div class="row">
       <h3>Current Weather</h3>
+      <span class="dim-text" *ngIf="locationName"> in {{ locationName }}</span>
       <h6>{{ getDesc(data.weathercode) }}</h6>
       <img [src]="getUrl(data.weathercode)" alt="" />
     </div>
@@ -69,6 +73,7 @@ export class CurrentWeatherComponent {
     winddirection: 0,
     windspeed: 0,
   };
+  @Input() locationName: string | undefined = '';
   getDesc(code: typeof this.data.weathercode) {
     return this.weatherService.getDescriptions(code);
   }

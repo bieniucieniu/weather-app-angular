@@ -48,6 +48,7 @@ import { StorageService } from '@/app/services/storage.service';
         background-color: var(--background-color);
         color: var(--text-color);
         box-shadow: var(--shadow);
+        z-index: 10;
         animation-duration: 0.6s;
         padding: 1rem;
         border-radius: 1rem;
@@ -173,8 +174,8 @@ export class SearchBarComponent {
   onPlaceSelect(place: GeocodeResult) {
     this.geocodingData = [];
     this.storage.setLastSearch({
-      latitude: place['latitude'] as string,
-      longitude: place['longitude'] as string,
+      latitude: place['latitude'] as number,
+      longitude: place['longitude'] as number,
       name: place['name'] as string,
     });
     this.router.navigate(['/forecast'], {
