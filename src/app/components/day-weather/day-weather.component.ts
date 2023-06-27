@@ -16,9 +16,6 @@ type HourlyWeather = {
   selector: 'app-day-weather',
   styles: [
     `
-      div.main {
-        color: black;
-      }
       div.list-wraper {
         display: flex;
         max-width: 100%;
@@ -36,7 +33,7 @@ type HourlyWeather = {
     `,
   ],
   template: `
-    <div class="main">
+    <div [class]="className">
       <h3>{{ params.name }}{{ params.date | date : 'EEEE, MMMM d' }}</h3>
       <!-- <button (click)="onClick()">log data</button> -->
       <app-current-weather [data]="currentWeather"></app-current-weather>
@@ -78,6 +75,7 @@ export class DayWeatherComponent {
     latitude: 0,
     longitude: 0,
   };
+  @Input() className: string = '';
 
   currentWeather: Weather['current_weather'] = {
     temperature: 0,

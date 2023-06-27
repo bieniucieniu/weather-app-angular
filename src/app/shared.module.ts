@@ -6,7 +6,6 @@ import { CurrentWeatherComponent } from './components/weather-card/current-weath
 @NgModule({
   declarations: [WeatherCardComponent, CurrentWeatherComponent],
   exports: [WeatherCardComponent, CurrentWeatherComponent],
-  providers: [DatePipe],
 
   imports: [CommonModule],
 })

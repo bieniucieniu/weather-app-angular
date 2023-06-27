@@ -190,7 +190,7 @@ export class SearchBarComponent {
     });
   }
   onFav(place: GeocodeResult) {
-    this.storage.addToFavorite({
+    this.storage.switchFavorite({
       latitude: place['latitude'] as number,
       longitude: place['longitude'] as number,
       name: place['name'] as string,

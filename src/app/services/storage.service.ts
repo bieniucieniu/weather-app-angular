@@ -25,6 +25,21 @@ export class StorageService {
     localStorage.setItem('favorite', JSON.stringify(this.favorite));
   }
 
+  public switchFavorite(value: placesInfo) {
+    if (localStorage.getItem('favorite')) {
+      this.favorite = JSON.parse(localStorage.getItem('favorite') as string);
+      for (let e of this.favorite) {
+        if (e.id == value.id) {
+          this.favorite = this.favorite.filter((item) => item.id !== value.id);
+          localStorage.setItem('favorite', JSON.stringify(this.favorite));
+          return;
+        }
+      }
+    }
+    this.favorite.push(value);
+    localStorage.setItem('favorite', JSON.stringify(this.favorite));
+  }
+
   public getFavorite() {
     if (localStorage.getItem('favorite')) {
       return JSON.parse(localStorage.getItem('favorite') as string);
