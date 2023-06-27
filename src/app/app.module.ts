@@ -10,6 +10,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { SearchItemComponent } from './components/search/search-bar/search-item/search-item.component';
 import { DatePipe } from '@angular/common';
+import { SharedModule } from './shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,13 @@ import { DatePipe } from '@angular/common';
     SearchComponent,
     SearchItemComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    SharedModule,
+  ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
 })

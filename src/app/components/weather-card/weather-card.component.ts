@@ -75,10 +75,10 @@ type Weather = DailyWeather | HourlyWeather;
           >
         </span>
 
-        <h5>{{ data.date.getHours }}</h5>
+        <h5>{{ data.date.getHours() }}:00</h5>
       </ng-template>
       <ng-template #daily>
-        <h5>{{ data.date.getDay }}</h5>
+        <h5>{{ data.date.getDay() }}</h5>
       </ng-template>
     </div>
   `,
