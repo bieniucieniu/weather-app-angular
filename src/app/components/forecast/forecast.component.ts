@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import {
-  WeatherService,
-  type Weather,
-  type WeatherProps,
-} from '@/app/services/weather.service';
+import { WeatherService } from '@/app/services/weather.service';
 @Component({
   selector: 'app-forecast',
   styles: [``],
   template: `
     <div>
       <app-day-weather [params]="params"></app-day-weather>
+      <app-weather-chart [params]="params"></app-weather-chart>
     </div>
   `,
 })

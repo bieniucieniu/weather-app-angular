@@ -14,9 +14,9 @@ import { Component } from '@angular/core';
         box-shadow: var(--dark-shadow);
         padding: 1.5rem;
         margin: 1.5rem;
-        min-width: 30rem;
-        max-width: 30rem;
-        min-height: 30rem;
+        min-width: 50rem;
+        max-width: 50rem;
+        max-height: calc(100vh - 3rem);
 
         display: flex;
         flex-direction: column;
@@ -38,9 +38,8 @@ import { Component } from '@angular/core';
 
       @media (max-width: 768px) {
         div.main-container {
-          min-width: 20rem;
-          max-width: 20rem;
-          min-height: 20rem;
+          min-width: calc(100vw - 3rem);
+          max-width: calc(100vw - 3rem);
         }
       }
 
