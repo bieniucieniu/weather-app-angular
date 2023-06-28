@@ -14,6 +14,7 @@ roadmap:
 - [ ] better error handling / lepsze zarządzanie błędami
 - [x] favorites cities / ulubione miasta
 - [ ] better file structure (maybe seperate dir for pages) / lepsza struktura plików (może osobny folder dla stron)
+- [ ] focus view of scrollalbe elements to important part / skupic widok w skrollowalnych elementach na istotnych czesciach (js scrollTo )
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
